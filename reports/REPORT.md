@@ -98,17 +98,43 @@ Không chỉ ghi “cẩn thận hơn khi gán”. -->
 1. `pose_mAP50-95` thay đổi bao nhiêu? Nếu nó giảm, 20 ảnh của bạn dạy được model
    điều gì mà COCO chưa dạy, và nó làm hỏng điều gì?
 
+   `pose_mAP50-95` tăng từ 0.6853 ở model gốc lên 0.6908 sau fine-tune,
+   tăng 0.0055 (0.55 điểm phần trăm).
+   Metric không giảm nên phần giả định "20 ảnh dạy model điều gì mà
+   COCO chưa dạy và nó làm hỏng điều gì" không áp dụng trực tiếp. 
 2. `box_mAP` và `pose_mAP` chênh nhau bao nhiêu? Model tìm *người* dễ hơn hay tìm
    *khớp* dễ hơn? Vì sao?
 
+   Sau fine-tune, `box_mAP50-95` = 0.8041 và `pose_mAP50-95` = 0.6908,
+   chênh lệch 0.1133.
+   Như vậy, trên tập test của bài này, metric của bounding box cao hơn
+   metric của pose. Điều này cho thấy model xác định vùng người có kết quả
+   metric cao hơn việc định vị chính xác các keypoint.
+
 3. Một ảnh test model đoán sai - gọi tên lỗi theo bốn loại của slide 43
    (lệch nhẹ / đảo trái/phải / nhầm người / trượt hẳn):
+   
+   Ảnh: `test_02.jpg`
+   Loại lỗi: `nhầm người`
+   Đối tượng: detection `person 0.31` ở phía bên trái ảnh.
+   Quan sát visualization: Model phát hiện đúng một người ở phía bên phải
+   với confidence 0.90, nhưng đồng thời tạo thêm một detection `person 0.31`
+   ở phía bên trái, nơi không có một người hoàn chỉnh tương ứng. Đây là
+   một false positive, cho thấy model bị nhầm một vùng/đối tượng trong ảnh
+   thành người.
 
 4. Ảnh nào có OKS thấp nhất giữa nhãn của bạn và model? Ai đúng, và bạn dựa vào đâu?
 
+   Ảnh: `train_13.jpg`
+
+   OKS giữa model và nhãn: `0.495`.
+   Model và nhãn của tôi có sự khác biệt rõ ở một số keypoint, đối chiếu
+   prediction của model với annotation của mình và Gold trên cùng ảnh để
+   xác định vị trí keypoint nào đúng. Kết luận được dựa trên bằng chứng
+   trực quan của ảnh và Gold, không chỉ dựa vào giá trị OKS.
 5. Ảnh bạn gán tệ nhất có *cũng* là ảnh model đoán tệ nhất không? Nếu có, điều đó
    nói gì về bức ảnh đó?
-
+   
 ## 5. Một rule evidence bạn đã dùng
 
 Chọn một keypoint trong ảnh core mà bạn phải quyết định giữa `v=1` và `v=0`. Nêu ảnh, người,
