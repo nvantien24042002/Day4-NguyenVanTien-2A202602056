@@ -1,6 +1,6 @@
 # Báo cáo Ngày 4 - Keypoint & Pose
 
-Họ tên: ______   Nhóm: ______   Ngày: ______
+Họ tên: Nguyễn Văn Tiến   Nhóm: SOLO   Ngày: 16/09/2026
 
 > Cách dùng: copy file này thành `reports/REPORT.md`. Điền bằng số liệu do công cụ sinh ra;
 > không tự ước lượng hoặc sửa số trong file JSON.
@@ -13,16 +13,16 @@ thời gian gán / 20. -->
 
 | Chỉ số | Giá trị |
 | --- | ---: |
-| Số ảnh đã gán | |
-| Số skeleton | |
-| v=2 / v=1 / v=0 | |
-| Thời gian trung bình mỗi ảnh | |
+| Số ảnh đã gán | 20 |
+| Số skeleton | 29 |
+| v=2 / v=1 / v=0 | 339 / 123 / 31 |
+| Thời gian trung bình mỗi ảnh | TBD |
 
 Ba khớp có `%v=1` cao nhất (chép từ `reports/visibility_report.md`):
 
-1.
-2.
-3.
+1. left_ear — 59%
+2. right_ear — 41%
+3. left_eye — 34% (đồng hạng với right_eye — 34%)
 
 Chúng có đúng là những khớp bạn thấy khó gán nhất không? Nếu không, giải thích.
 
@@ -36,26 +36,28 @@ lần sau rework. Đếm số phần tử trong từng danh sách lỗi, không 
 
 | Chỉ số | Trước rework | Sau rework |
 | --- | ---: | ---: |
-| OKS trung bình | | |
-| OKS@0.50 | | |
-| OKS@0.75 | | |
-| Lỗi `dao_trai_phai` | | |
-| Lỗi `nham_nguoi` | | |
-| Lỗi `xoa_khop_bi_che` | | |
+| OKS trung bình | 0.822 | 0.939 |
+| OKS@0.50 | 0.931 | 1.000 |
+| OKS@0.75 | 0.862 | 1.000 |
+| Lỗi `dao_trai_phai` | 3 | 0 |
+| Lỗi `nham_nguoi` | 0 | 0 |
+| Lỗi `xoa_khop_bi_che` | 2 | 0 |
 
 **Tôi đã sửa gì giữa hai lần chạy** (ghi cụ thể: ảnh nào, người thứ mấy, khớp nào):
 
 <!-- Mỗi dòng phải có: tên ảnh + người thứ mấy + keypoint + thao tác sửa. Không viết “đã sửa
 lại một số lỗi”. -->
 
--
--
--
+- `train_06.jpg` — người #1 — sửa lỗi đảo trái/phải và sửa `left_wrist` bị trượt hẳn.
+- `train_19.jpg` — người #2 — sửa lỗi đảo trái/phải và sửa `right_elbow`, `left_wrist`, `right_wrist` bị trượt hẳn.
+- `train_13.jpg` — người #1 — sửa lỗi đảo trái/phải.
+- `train_01.jpg` — người #1 — sửa `left_wrist` bị xóa khi bị che và bổ sung `left_hip`.
+- `train_02.jpg` — người #1 — sửa `right_ankle` bị xóa khi bị che.
 
 **Lỗi đảo trái/phải của tôi xảy ra ở ảnh nào?** Ảnh đó dễ hay khó? Nếu là ảnh dễ,
 bạn nghĩ vì sao mình vẫn sai?
 
-<!-- Nếu không có lỗi, ghi rõ “Không có lỗi đảo trái/phải trong toàn bộ 20 ảnh.” -->
+Lỗi đảo trái/phải của xảy ra ở `train_06.jpg`, `train_19.jpg` và `train_13.jpg`. Nguyên nhân là   lúc xác định trái/phải chưa nhất quán theo cơ thể người. Sau khi kiểm tra lại bằng visualization và Gold,sửa các trường hợp này.
 
 ## 3. Kiểm chéo
 
@@ -82,11 +84,11 @@ Không chỉ ghi “cẩn thận hơn khi gán”. -->
 
 | Chỉ số | yolo26n-pose gốc | Sau fine-tune | Chênh |
 | --- | ---: | ---: | ---: |
-| pose_mAP50 | | | |
-| pose_mAP50-95 | | | |
-| pose_precision | | | |
-| pose_recall | | | |
-| box_mAP50-95 | | | |
+| pose_mAP50 | TBD | TBD | TBD |
+| pose_mAP50-95 | TBD | TBD | TBD |
+| pose_precision | TBD | TBD | TBD |
+| pose_recall | TBD | TBD | TBD |
+| box_mAP50-95 | TBD | TBD | TBD |
 
 ### Trả lời năm câu hỏi ở cuối notebook
 
